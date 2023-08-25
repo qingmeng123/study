@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hellok8s-deployment #唯一
+spec:
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  replicas: 2 #pod副本数量
+  selector: #关联方式
+    matchLabels:
+      app: hellok8s #管理所有labels=hellok8s的pod
+  template:
+    metadata:
+      labels:
+        app: hellok8s
+    spec:
+      containers:
+        - image: duryun/hellok8s:v3
+          name: hellok8s-container
+
